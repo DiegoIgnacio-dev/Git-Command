@@ -222,3 +222,4 @@ Fast-forward
 git remote add origin https://github.com/DiegoIgnacio-dev/Git-Command.git
 nos sirve para indicar nuestro servidor remoto, de donde sacaremos nuestro codigo y a donde la guardaremos
 
+ git push -u origin master con esto subiremos los cambios hechos en local a nuestro repocitorio dde github
