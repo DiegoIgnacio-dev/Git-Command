@@ -1,0 +1,224 @@
+git
+
+Bash basico
+
+pwd = para saber en que directorio me encuentro
+ls  = para listar el directorio en el que me encuentro
+ls -a = para mostar los directorios ocultos en el sistema
+cd Carpeta = para ingresar a la carpeta deseada
+mkdir = para crear carpetas
+git init = agregar directorio a init 
+
+cd .git para ingresar al directorio de git
+git status = para saber el estado del repositorio
+/*
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        archivo1.txt
+*/
+
+significa que git no esta siguiendo dichos archivos
+
+Si queremos que git comienze a seguirlos o los pase
+a etapa de stage debemos usar el comando
+
+git add archivo1.txt Para agregar solo el archivo citado
+git add .txt este agregara todos los archivos de extencion .txt
+git add . este agreagara todos los archivos de la carpeta(Mala practica)
+
+git add archivo1.txt :
+
+Changes to be committed:(Cambios listos para ser comprometidos)
+  (use "git rm --cached <file>..." to unstage)
+        new file:   archivo1.txt
+
+SI MODIFICAMOS UN ARCHIVO ESTE PASA A MODIFICADO Y DEBEREMOS VOLVER A AGREGAR EL ARCHIVO A GIT
+
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   archivo1.txt
+        new file:   archivo2.js
+
+Changes not staged for commit: CAMBIOS NO AGREGADOS
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   archivo2.js
+
+
+ git commit -m "commit inicial" con este comando comprometimos nuestros archivos
+
+[master (root-commit) 5e6973c] commit inicial
+ 3 files changed, 56 insertions(+)
+ create mode 100644 NOTASGIT.TXT
+ create mode 100644 archivo1.txt
+ create mode 100644 archivo2.js
+
+
+git-Comandos
+
+Diego@DESKTOP-6I181M9 MINGW64 ~
+$ git --version
+git version 2.38.1.windows.1
+
+Diego@DESKTOP-6I181M9 MINGW64 ~
+$ git config --global user.name "Diego Avila"
+
+Diego@DESKTOP-6I181M9 MINGW64 ~
+$ git config --global user.email diego.ignacio_adev@hotmail.com
+
+Diego@DESKTOP-6I181M9 MINGW64 ~
+$ git config --global core.editor "code --wait"
+
+Diego@DESKTOP-6I181M9 MINGW64 ~
+$ git config --global -e
+
+SI ESTOY EN WINDOWS DEBO USAR LA CONFIGURACION 
+en windows para marcar un salto de linea este agregara dos caracteres especiales
+CR:carrier returno o tambien LF :line feet 
+
+en cambio linux y mac solo agregaran LF
+
+$ git config core.autocrlf true
+
+linux
+$ git config core.autocrlf input
+
+dir :directorio
+ls:listar directorio
+
+cd .. una ruta anterior
+
+pwd :saber en que carpeta estoy
+
+cd: Documents ir a carpeta documentos
+
+git init :inicializar carpeta en repositorio
+
+para ver directorios ocultos podemos usar ls -a
+
+git status: ver estado actual del repo
+
+para que git siga un archivo podemos usar git add
+
+hay 3 formas 
+
+git add namefile.js//directamente el archivo nombrado
+git add .js // todos los archivos de extencio .js
+git add . //todos los archivos del directorio--not recommended
+
+
+$ git commit -m "Commit Inicial"
+[master (root-commit) 533f5a7] Commit Inicial
+ 2 files changed, 2 insertions(+)
+ create mode 100644 app.js
+ create mode 100644 app_two.js
+
+al hacer un git commit se nos abrira el editor de codigo y podremos agregar el comentario
+
+al borrar un archivo deberemos realizar el commit del archivo borrado para que se confirme el borrado
+en git 
+
+rm app.js
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed) --> si queremos confirmar el borrado total
+  (use "git restore <file>..." to discard changes in working directory) --> si queremos restaurar
+        deleted:    app_two.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+corfirmamos el borrado del archivo
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git add app_two.js
+
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    app_two.js
+
+
+hacemos el commit del borrado
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git commit -m "Eliminando app_two.js"
+[master fcc069a] Eliminando app_two.js
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 app_two.js
+
+para renombrar un archivo usamos rm
+
+rm app.js app2.js
+
+al hacer esto se borrara el app.js y se creara el app2.js 
+en este caso debemos decir a git que  el primero fue borrado y el segundo sera su remplazo 
+por lo que debemos usar git add
+
+git add app.js app2.js
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git add app.js app2.js
+
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    app.js -> app2.js
+
+
+si queremos hacerlo mas rapido podemos usar 
+
+git mv app.js app2.js 
+
+git add -m "restableciendo nombre"
+
+para hacer que git ignore ciertos archivos de mi aplicacion , archivos de configuracion 
+o variables de entorno usamos .gitignore
+debemos crear un archivo llamado .gitignore y dentro pondemos el nombre de nuestro archivo
+.env
+node_modules/
+
+
+git diff nos mostrara los cambos hechos de forma deetallada en el archivo
+
+$ git log --oneline historial de cambios 
+d428b2e (HEAD -> master) agregando titulo
+1dbeca8 Agregando nuevos cambios
+989793a agregando archivo .gitignore
+efdc391 reestableciendo nombre
+22248c4 renombrando archivo
+fcc069a Eliminando app_two.js
+9809645 agregando cambios
+533f5a7 Commit Inicial
+
+trabajar con ramas
+
+saber en que rama estoy 
+git branch
+
+crear una nueva rama 
+$ git checkout -b tk12
+
+ver el contenido de un archivo podemos usar cat index.html
+
+para traer los cambios de la rama tk12 a la master debemos movernos a la rama main o master 
+git checkout master
+
+Diego@DESKTOP-6I181M9 MINGW64 ~/workspace/web (master)
+$ git merge tk12
+Updating d428b2e..5824095
+Fast-forward
+ index.html | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+git remote add origin https://github.com/DiegoIgnacio-dev/Git-Command.git
+nos sirve para indicar nuestro servidor remoto, de donde sacaremos nuestro codigo y a donde la guardaremos
+
